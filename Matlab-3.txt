@@ -1,0 +1,104 @@
+A] Median Filtering
+I = imread('C:\Users\Acer\Desktop\ip\Koala.jpg');
+figure();
+subplot(3,2,1);
+imshow(I);
+title('Original Image');
+M=rgb2gray(I);
+J=imnoise(M,'Salt & Pepper',0.1);
+subplot(3,2,2);
+imshow(J);
+title('Image with Salt & Pepper Noise');
+M=rgb2gray(I);
+K = medfilt2(M);
+subplot(3,2,3);
+imshow(K);
+title('Image after Median Filtering');
+F=fspecial('Average');
+L=imfilter(M,F,'Replicate');
+subplot(3,2,4);
+imshow(L);
+title('Image after Averaging');
+%unsharp masking
+subplot(3,2,5);
+imshow(M-K);
+title('Unsharp Masking');
+subplot(3,2,6);
+imshow((M-K).^10);
+
+B] Averaging Filtering
+A=imread('C:\Users\Acer\Desktop\ip\Koala.jpg');
+AG=rgb2gray(A);
+AGN=imnoise(AG,'Salt & Pepper',0.09);
+F=fspecial('Average');
+blurred1=imfilter(AG,F,'Replicate');
+figure();
+subplot(2,2,1);
+imshow(A);
+title('Original image');
+subplot(2,2,2);
+imshow(AG);
+title('Gray Level Image');
+subplot(2,2,3);
+imshow(AGN);
+title('Image With Salt & Pepper Noise');
+subplot(2,2,4);
+imshow(blurred1);
+title('Image after Applying Averaging Filter');
+
+
+C] Laplacian Filtering
+I=imread('C:\Users\Acer\Desktop\ip\ABC.jpg');
+J=rgb2gray(I);
+subplot(1,2,1);
+imshow(J);
+title('Original Image');
+subplot(1,2,2);
+title('Laplacian');
+H=fspecial('laplacian');
+b=imfilter(J,H);
+imshow(b);
+
+
+D] Noise
+I=imread('C:\Users\Acer\Desktop\ip\Koala.jpg');
+IG=rgb2gray(I);
+IGG=imnoise(IG,'Gaussian',0.02);
+IGS=imnoise(IG,'Salt & Pepper',0.02);
+IGS1=imnoise(IG,'Salt & Pepper',0.2);
+subplot(2,2,1);
+imshow(IG);
+subplot(2,2,2);
+imshow(IGG);
+title('Gaussian Noise');
+subplot(2,2,3);
+imshow(IGS);
+title('Salt & Pepper 0.02');
+subplot(2,2,4);
+imshow(IGS1);
+title('Salt & Pepper 0.2');
+
+
+E] Weiner Filtering
+I=imread('C:\Users\Acer\Desktop\ip\Koala.jpg');
+IG=rgb2gray(I);
+%adding gaussian noise
+IGG=imnoise(IG,'Gaussian',0.005);
+%box filtering
+ f1=fspecial('Disk',10);
+b1=imfilter(IGG,f1,'Replicate');
+%weiner filtering
+b2=wiener2(IGG,[10,10]);
+figure();
+subplot(2,2,1);
+imshow(IG);
+title('Original Image');
+subplot(2,2,2);
+imshow(IGG);
+title('Gaussian Noise');
+subplot(2,2,3);
+imshow(b1);
+title('Box Filter');
+subplot(2,2,4);
+imshow(b2);
+title('Weiner Filter');

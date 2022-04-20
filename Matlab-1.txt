@@ -1,0 +1,32 @@
+I=imread('C:\Users\Acer\Desktop\ip\Koala.jpg');
+size(I)
+whos I
+subplot(4,2,1)
+imshow(I)
+title('Original Image');
+R=imrotate(I,90);
+subplot(4,2,2);
+imshow(R)
+title('Rotated Original Image by 90');
+C=imcomplement(I);
+subplot(4,2,3)
+imshow(C)
+title('Complement of Image I');
+s=imsubtract(I,C);
+subplot(4,2,4);
+imshow(s);
+title('Subtract Original from its Complement');
+J=rgb2gray(I);
+subplot(4,2,5);
+imshow(J);
+title('Gray Level Image for Original Image');
+g=mat2gray(J);
+subplot(4,2,6);
+imhist(g);
+k=histeq(J);
+subplot(4,2,7);
+imhist(k);
+title('Histogram of Equalised Image');
+subplot(4,2,8);
+imshow(k);
+title('Equalised Image');
